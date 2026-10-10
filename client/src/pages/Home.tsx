@@ -77,6 +77,8 @@ function LinkedInMark({ className = "" }: { className?: string }) {
 
 function Home() {
   const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState("");
+  const [submitting, setSubmitting] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(true);
   const [openCardIndex, setOpenCardIndex] = useState<number | null>(null);
 
@@ -109,10 +111,29 @@ function Home() {
     return () => document.removeEventListener("click", handleClickOutside);
   }, [openCardIndex]);
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setSubmitted(true);
-    event.currentTarget.reset();
+    const form = event.currentTarget;
+    setSubmitting(true);
+    setError("");
+    setSubmitted(false);
+    try {
+      const res = await fetch("https://formspree.io/f/mrpbnqpr", {
+        method: "POST",
+        body: new FormData(form),
+        headers: { Accept: "application/json" },
+      });
+      if (res.ok) {
+        setSubmitted(true);
+        form.reset();
+      } else {
+        setError("Something went wrong. Please email me directly at ahsanfsd99@gmail.com.");
+      }
+    } catch {
+      setError("Something went wrong. Please email me directly at ahsanfsd99@gmail.com.");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -201,7 +222,8 @@ function Home() {
               const hasProjects = projects.length > 0;
               return (
                 <article
-                  className={`service-card reveal${isOpen ? " is-dropdown-open" : ""}`}
+                  className="service-card reveal"
+                  data-open={isOpen}
                   data-reveal
                   key={title}
                   tabIndex={0}
@@ -329,14 +351,19 @@ function Home() {
                   required
                 />
               </label>
-              <button className="primary-button form-submit" type="submit">
-                Book a Project
+              <button className="primary-button form-submit" type="submit" disabled={submitting}>
+                {submitting ? "Sending…" : "Book a Project"}
                 <ArrowUpRight aria-hidden="true" size={16} strokeWidth={1.8} />
               </button>
               {submitted && (
                 <p className="form-success" role="status">
                   <CheckCircle2 aria-hidden="true" size={16} strokeWidth={1.8} />
                   Thanks — your request has been submitted.
+                </p>
+              )}
+              {error && (
+                <p className="form-success" role="alert" style={{ color: "#dc2626" }}>
+                  {error}
                 </p>
               )}
             </form>

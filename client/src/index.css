@@ -396,7 +396,7 @@
 
   .service-card:hover,
   .service-card:focus-within,
-  .service-card.is-dropdown-open {
+  .service-card[data-open="true"] {
     z-index: 2;
   }
 
@@ -459,7 +459,7 @@
 
   .service-card:hover .service-dropdown,
   .service-card:focus-within .service-dropdown,
-  .service-card.is-dropdown-open .service-dropdown {
+  .service-card[data-open="true"] .service-dropdown {
     opacity: 1;
     pointer-events: auto;
     transform: translateY(0);
@@ -893,7 +893,7 @@
 
   .service-card:hover .service-dropdown,
   .service-card:focus-within .service-dropdown,
-  .service-card.is-dropdown-open .service-dropdown {
+  .service-card[data-open="true"] .service-dropdown {
     max-height: 300px;
     padding-top: 12px;
     margin-top: 12px;
