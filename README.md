@@ -1,78 +1,27 @@
-# Ahsan Rehman — AI Engineer Portfolio
+# Ahsan Rehman: AI Engineer Portfolio
+React 19 · TypeScript 5.6 · Vite 7 · Tailwind CSS 4 · tw-animate-css · wouter · motion · Lenis
 
-A minimal, professional, single-page portfolio for freelance Artificial Intelligence Engineer **Ahsan Rehman**.
+    pnpm install   # or npm install
+    pnpm dev       # http://localhost:5173
+    pnpm build     # type-check + production build to /dist
 
-## Stack
+## Structure
+- `src/lib.tsx`: animation primitives (Lenis, Split, Reveal, Scramble, Roll, Magnetic, CountUp, Marquee, Cursor)
+- `src/data.ts`: all projects, services, skills, process steps (edit here)
+- `src/App.tsx`: preloader, nav, hero, sections, project case-study page
+- `src/index.css`: light-blue design tokens and component styles
 
-- React 19
-- Vite
-- TypeScript
-- Tailwind CSS 4
-- Lucide React icons
-- No backend or database
+## Edit projects
+Edit `src/data.ts`. The first six are your featured work; the rest are "Concept / Lab" cards with a TODO to confirm or replace.
 
-## Folder structure
+## Optional hero video
+Drop a clean `hero-loop.mp4` and `hero-poster.jpg` into `public/media/`. The hero detects it automatically and layers it under a white scrim. Otherwise the aurora and grid background is used.
 
-```text
-ahsan-rehman-portfolio/
-├── client/
-│   ├── index.html
-│   ├── public/
-│   │   └── Ahsan_Rehman.pdf
-│   └── src/
-│       ├── components/
-│       ├── contexts/
-│       ├── hooks/
-│       ├── lib/
-│       ├── pages/
-│       │   ├── Home.tsx
-│       │   └── NotFound.tsx
-│       ├── App.tsx
-│       ├── index.css
-│       └── main.tsx
-├── server/
-│   └── index.ts
-├── shared/
-│   └── const.ts
-├── package.json
-├── tsconfig.json
-├── vite.config.ts
-└── README.md
-```
+## Contact form
+Set `VITE_FORM_ENDPOINT` (Formspree / Web3Forms) in `.env`. If unset, the form opens a prefilled `mailto:`.
 
-The profile image is intentionally handled with a navy `AR` placeholder when `/ahsan.jpg` is not available. To use the supplied profile photo later, add it as `client/public/ahsan.jpg`.
+## Replace
+`public/Ahsan_Rehman.pdf` is a placeholder. Swap in your real resume. Update the domain in `public/sitemap.xml` and `robots.txt`.
 
-## Run locally
-
-```bash
-npm install
-npm run dev
-```
-
-The scaffold also supports pnpm:
-
-```bash
-pnpm install
-pnpm dev
-```
-
-Useful checks:
-
-```bash
-npm run check
-npm run build
-```
-
-## Vercel deployment
-
-1. Push the project folder to a GitHub, GitLab, or Bitbucket repository.
-2. Sign in to [Vercel](https://vercel.com/) and choose **Add New → Project**.
-3. Import the repository.
-4. Keep the detected Vite settings, or use:
-   - **Framework Preset:** Vite
-   - **Build Command:** `npm run build`
-   - **Output Directory:** `dist/public`
-5. Select **Deploy**.
-6. After the first deployment, use the Vercel project settings to connect a custom domain if needed.
-
-No environment variables are required for this static portfolio.
+## Deploy
+Import the repo in Vercel; `vercel.json` already handles SPA routing.
